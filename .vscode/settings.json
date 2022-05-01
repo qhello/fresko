@@ -1,0 +1,17 @@
+{
+  "cSpell.words": [
+    "antfu",
+    "bumpp",
+    "fresko",
+    "freskorc",
+    "packument",
+    "pacote",
+    "taze"
+  ],
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false
+  }
+}
