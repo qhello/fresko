@@ -5,3 +5,4 @@ dist
 test/**/pnpm-lock.yaml
 package.back.json
 cache.json
+fresko.config.ts

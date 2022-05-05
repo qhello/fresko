@@ -8,10 +8,8 @@
     "pacote",
     "taze"
   ],
-  "[typescript]": {
-    "editor.formatOnSave": false
-  },
-  "[javascript]": {
-    "editor.formatOnSave": false
+  "prettier.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
