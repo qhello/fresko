@@ -20,3 +20,7 @@ export interface Configuration {
     }
   }
 }
+
+export type UserConfiguration = {
+  prompts: Configuration['prompts']
+} & DeepPartial<Configuration>

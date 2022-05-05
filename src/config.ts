@@ -2,14 +2,14 @@ import { findUp } from 'find-up'
 import deepmerge from 'deepmerge'
 import _debug from 'debug'
 import jiti from 'jiti'
-import type { Configuration, DeepPartial } from './types'
+import type { Configuration, UserConfiguration } from './types'
 
 const debug = _debug('fresko:config')
 
 export const CONFIG_FILES = ['fresko.config.ts']
 export const LOG_LEVELS = ['debug', 'info', 'warn', 'error', 'silent']
 
-export const declareConfiguration = (config: DeepPartial<Configuration>): DeepPartial<Configuration> => {
+export const declareConfiguration = (config: UserConfiguration): UserConfiguration => {
   return config
 }
 
