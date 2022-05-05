@@ -35,5 +35,5 @@ export async function resolveConfig(defaultOptions: Configuration): Promise<Conf
   debug(`config file found ${match}`)
   const configOptions = tryRequire(match)
 
-  return deepmerge(configOptions, defaultOptions) as Configuration
+  return deepmerge(defaultOptions, configOptions) as Configuration
 }
