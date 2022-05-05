@@ -33,10 +33,12 @@ const run = async () => {
   debug('updatedPaths', JSON.stringify(updatedPaths, null, 2))
 
   // Check which prompts should be run
-  const prompts = filterPrompts(updatedPaths, config.prompts)
+  const filteredPrompts = filterPrompts(updatedPaths, config.prompts)
+
+  debug('filteredPrompts', JSON.stringify(filteredPrompts, null, 2))
 
   // If there are no prompts to run, exit
-  if (prompts.length === 0)
+  if (filteredPrompts.length === 0)
     return
 
   // Welcome message
@@ -44,7 +46,7 @@ const run = async () => {
   printSubheader(config.theme.start.subheader)
 
   // Run prompts
-  for (const prompt of prompts)
+  for (const prompt of filteredPrompts)
     await confirmCommand(prompt)
 
   printHeader(config.theme.end.header)
