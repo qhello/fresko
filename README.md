@@ -2,9 +2,11 @@
 <p align="center"><sup>(<em>fresh</em> in Basque)</sup></p>
 <p align="center">A configurable cli that keeps your project deps fresh</p>
 
+## Why?
+
 _Have you ever pulled someone else's code into your local environment, only to realize later that your code doesn't work anymore?_
 
-_Was is because that person added a new Node.js dependency, added a new migration, or anything else that needs to be "loaded" through some command?_
+_Was it because that person added a new Node.js dependency, a new migration, or anything else that needs to be "loaded" through some command?_
 
 With `fresko`, this will not happen - ever. 😀
 
