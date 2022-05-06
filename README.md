@@ -2,6 +2,10 @@
 <p align="center"><sup>(<em>fresh</em> in Basque)</sup></p>
 <p align="center">A configurable cli that keeps your project deps fresh</p>
 
+<p align='center'>
+<img src='./screenshots/main.png' width='600'/>
+</p>
+
 ## Why?
 
 _Have you ever pulled someone else's code into your local environment, only to realize later that your code doesn't work anymore?_
