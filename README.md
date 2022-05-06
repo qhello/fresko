@@ -3,7 +3,7 @@
 <p align="center">A configurable cli that keeps your project deps fresh</p>
 
 <p align='center'>
-<img src='./screenshots/main.png' width='600'/>
+<img src='./screenshots/main.png' width='426'/>
 </p>
 
 ## Why?
@@ -59,8 +59,11 @@ export default declareConfiguration({
 Add git hook on `post-merge` event (optional, recommended)
 
 ```bash
-npx husky add .husky/post-merge "npx fresko"
+npx husky add .husky/post-merge "exec < /dev/tty && npx fresko || true"
 ```
+
+> **Why `exec < /dev/tty`?** By default, git hooks are not interactive. This command allows the user to use their terminal to interact with Fresko during the hook.
+
 
 ## License
 
