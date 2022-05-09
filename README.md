@@ -1,4 +1,4 @@
-<h1 align="center">🫐 Fresko</h1>
+<h1 align="center">🍇 Fresko</h1>
 <p align="center"><sup>(<em>fresh</em> in Basque)</sup></p>
 <p align="center">A configurable cli that keeps your project deps fresh</p>
 
@@ -18,7 +18,7 @@ Automatically react to changes in your repository, each time you're pulling new 
 
 ## Install
 
-```bash
+```sh
 // npm
 npm install -D fresko
 
@@ -58,7 +58,7 @@ export default declareConfiguration({
 
 Add git hook on `post-merge` event (optional, recommended)
 
-```bash
+```sh
 npx husky add .husky/post-merge "exec < /dev/tty && npx fresko || true"
 ```
 
