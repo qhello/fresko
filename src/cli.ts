@@ -1,11 +1,8 @@
 #!/usr/bin/env node
-
-import shell from 'shelljs'
 import _debug from 'debug'
 import { resolveConfig } from './config'
 import type { Configuration } from './types'
-import { confirmCommand, filterPrompts, printHeader, printSubheader } from './utils'
-
+import { confirmCommand, filterPrompts, printHeader, printSubheader, runCommand } from './utils'
 const debug = _debug('fresko:cli')
 
 const defaultConfiguration: Configuration = {
@@ -28,7 +25,7 @@ const run = async () => {
 
   debug('config', JSON.stringify(config, null, 2))
 
-  const updatedPaths = shell.exec('git diff --name-only "HEAD@{1}" HEAD', { silent: true }).toString().trim().split('\n')
+  const updatedPaths = (await runCommand('git diff --name-only "HEAD@{1}" HEAD', { silent: true })).trim().split('\n')
 
   debug('updatedPaths', JSON.stringify(updatedPaths, null, 2))
 
