@@ -3,11 +3,9 @@ import deepmerge from 'deepmerge'
 import _debug from 'debug'
 import jiti from 'jiti'
 import type { Configuration, UserConfiguration } from './types'
+import { CONFIG_FILES, DEFAULT_CONFIG } from './const'
 
 const debug = _debug('fresko:config')
-
-export const CONFIG_FILES = ['fresko.config.ts']
-export const LOG_LEVELS = ['debug', 'info', 'warn', 'error', 'silent']
 
 export const declareConfiguration = (config: UserConfiguration): UserConfiguration => {
   return config
@@ -26,14 +24,14 @@ export function tryRequire(id: string, rootDir: string = process.cwd()) {
   }
 }
 
-export async function resolveConfig(defaultOptions: Configuration): Promise<Configuration> {
+export async function resolveConfig(): Promise<Configuration> {
   const match = await findUp(CONFIG_FILES, { cwd: process.cwd() })
 
   if (!match)
-    return defaultOptions
+    return DEFAULT_CONFIG
 
   debug(`config file found ${match}`)
-  const configOptions = tryRequire(match)
+  const config = tryRequire(match)
 
-  return deepmerge(defaultOptions, configOptions) as Configuration
+  return deepmerge(DEFAULT_CONFIG, config) as Configuration
 }

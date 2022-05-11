@@ -1,8 +1,11 @@
+import _debug from 'debug'
 import chalk from 'chalk'
 import figlet from 'figlet'
 import inquirer from 'inquirer'
 import type { PromptConfiguration } from '../types'
 import { runCommand as exec } from './commands'
+
+const debug = _debug('fresko:interface')
 
 export const printHeader = (text: string) => {
   console.warn(chalk.green(figlet.textSync(text, 'Doom')))
@@ -15,7 +18,9 @@ export const printSubheader = (text: string) => {
 export const confirmCommand = async ({
   path,
   command,
+  ...options
 }: PromptConfiguration) => {
+  debug('confirmCommand', { path, command, options })
   console.warn(`\n 📦 ${chalk.white.bgGrey(path)} was updated! \n`)
 
   const questions = [
@@ -32,5 +37,5 @@ export const confirmCommand = async ({
   )
 
   if (runCommand)
-    await exec(command)
+    await exec(command, options)
 }

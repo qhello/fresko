@@ -1,6 +1,7 @@
 import { spawn } from 'child_process'
 import chalk from 'chalk'
 import _debug from 'debug'
+import type { PromptOptions } from '../types'
 
 const debug = _debug('fresko:cli')
 
@@ -15,22 +16,27 @@ const addPrefix = (
       l.trim().length > 0 ? `${chalk.bold(prefix)} ${l}` : l,
     )
     .join('\n')
+
   return out
 }
 
-export const runCommand = (
-  command: string,
-  { silent }: { silent: boolean } = { silent: false },
-): Promise<string> => {
+const defaultOptions: PromptOptions = {
+  silent: false,
+  env: {},
+}
+
+export const runCommand = (command: string, options: Partial<PromptOptions>): Promise<string> => {
   return new Promise((resolve, reject) => {
+    const opts: PromptOptions = { ...defaultOptions, ...options }
     const args = command.split(' ')
     const commandName = args.shift()
 
-    debug({ commandName, args })
+    debug({ commandName, args, opts })
 
     const childProcess = spawn(commandName as string, args, {
       shell: true,
       stdio: 'pipe',
+      env: { ...process.env, ...opts.env }, // required to pass process.env
     })
 
     if (childProcess.stderr === null || childProcess.stdout === null) {
@@ -42,7 +48,7 @@ export const runCommand = (
 
     childProcess.stdout.on('data', (data) => {
       result += data
-      if (!silent)
+      if (!opts.silent)
         process.stdout.write(addPrefix(data))
     })
     childProcess.stderr.on('data', (err) => {

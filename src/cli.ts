@@ -1,27 +1,14 @@
 #!/usr/bin/env node
 import _debug from 'debug'
+import deepmerge from 'deepmerge'
 import { resolveConfig } from './config'
-import type { Configuration } from './types'
+import type { PromptConfiguration } from './types'
 import { confirmCommand, filterPrompts, printHeader, printSubheader, runCommand } from './utils'
 const debug = _debug('fresko:cli')
 
-const defaultConfiguration: Configuration = {
-  theme: {
-    start: {
-      header: 'Fresko',
-      subheader: 'helping you keeping your workspace fresh since 1337.',
-    },
-    end: {
-      header: 'Done!',
-      subheader: 'And they lived happily ever after.',
-    },
-  },
-  prompts: [],
-}
-
 const run = async () => {
   // Load configuration
-  const config = await resolveConfig(defaultConfiguration)
+  const config = await resolveConfig()
 
   debug('config', JSON.stringify(config, null, 2))
 
@@ -43,8 +30,10 @@ const run = async () => {
   printSubheader(config.theme.start.subheader)
 
   // Run prompts
-  for (const prompt of filteredPrompts)
+  for (let prompt of filteredPrompts) {
+    prompt = deepmerge(prompt, config.default as Partial<PromptConfiguration>)
     await confirmCommand(prompt)
+  }
 
   printHeader(config.theme.end.header)
   printSubheader(config.theme.end.subheader)

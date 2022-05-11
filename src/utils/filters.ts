@@ -7,4 +7,3 @@ export const filterPrompts = (updatedPaths: string[], prompts: PromptConfigurati
   })
   return filteredPrompts
 }
-
