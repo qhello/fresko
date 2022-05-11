@@ -1,7 +1,7 @@
 {
   "name": "fresko",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "packageManager": "pnpm@7.0.0",
   "description": "A configurable cli that keeps your project deps fresh",
   "license": "MIT",
