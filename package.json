@@ -1,56 +1,53 @@
 {
   "name": "fresko",
-  "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@7.0.0",
   "description": "A configurable cli that keeps your project deps fresh",
-  "license": "MIT",
+  "homepage": "https://github.com/qhello/fresko#readme",
+  "bugs": {
+    "url": "https://github.com/qhello/fresko/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qhello/fresko.git"
   },
+  "license": "MIT",
+  "type": "module",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "bin": {
     "fresko": "bin/fresko.mjs"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "lint": "eslint .",
-    "dev": "unbuild --stub && DEBUG=fresko:* ./bin/fresko.mjs",
     "build": "unbuild",
+    "dev": "unbuild --stub && DEBUG=fresko:* ./bin/fresko.mjs",
+    "lint": "eslint .",
     "prepublishOnly": "pnpm build",
     "release": "bumpp --commit --tag --push && pnpm publish --no-git-checks",
     "test": "tsc --noEmit"
   },
-  "bugs": {
-    "url": "https://github.com/qhello/fresko/issues"
-  },
-  "homepage": "https://github.com/qhello/fresko#readme",
-  "dependencies": {
-    "chalk": "^5.0.1",
-    "deepmerge": "^4.2.2",
-    "figlet": "^1.5.2",
-    "inquirer": "^8.2.4",
-    "jiti": "^1.13.0"
+  "eslintConfig": {
+    "extends": "@antfu/eslint-config"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.23.0",
     "@types/debug": "^4.1.7",
-    "@types/figlet": "^1.5.4",
-    "@types/inquirer": "^8.2.1",
     "@types/node": "^17.0.31",
+    "@types/prompts": "^2.0.14",
     "bumpp": "^7.1.1",
+    "chalk": "^5.0.1",
     "debug": "^4.3.4",
+    "deepmerge": "^4.2.2",
     "eslint": "^8.14.0",
     "find-up": "^6.3.0",
+    "jiti": "^1.13.0",
+    "prompts": "^2.4.2",
     "typescript": "^4.6.4",
-    "unbuild": "^0.7.4"
+    "unbuild": "^0.7.4",
+    "vitest": "^0.12.4"
   },
-  "eslintConfig": {
-    "extends": "@antfu/eslint-config"
-  }
+  "packageManager": "pnpm@7.0.0"
 }

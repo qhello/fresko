@@ -1,17 +1,20 @@
 import _debug from 'debug'
 import chalk from 'chalk'
-import figlet from 'figlet'
-import inquirer from 'inquirer'
+import prompts from 'prompts'
 import type { PromptConfiguration } from '../types'
 import { runCommand as exec } from './commands'
 
 const debug = _debug('fresko:interface')
 
 export const printHeader = (text: string) => {
-  console.warn(chalk.green(figlet.textSync(text, 'Doom')))
+  if (!text)
+    return
+  console.warn(chalk.green(`\n${text}`))
 }
 
 export const printSubheader = (text: string) => {
+  if (!text)
+    return
   console.warn(chalk.italic(`${text}\n`))
 }
 
@@ -23,18 +26,12 @@ export const confirmCommand = async ({
   debug('confirmCommand', { path, command, options })
   console.warn(`\n 📦 ${chalk.white.bgGrey(path)} was updated! \n`)
 
-  const questions = [
-    {
-      name: 'runCommand',
-      type: 'confirm',
-      message: `would you like to run ${chalk.white.bgGrey(command)}?`,
-      default: true,
-    },
-  ]
-
-  const { runCommand } = await inquirer.prompt<{ runCommand: boolean }>(
-    questions,
-  )
+  const { runCommand } = await prompts({
+    type: 'confirm',
+    name: 'runCommand',
+    message: `would you like to run ${chalk.white.bgGrey(command)}?`,
+    initial: true,
+  })
 
   if (runCommand)
     await exec(command, options)

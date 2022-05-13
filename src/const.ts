@@ -6,11 +6,11 @@ export const DEFAULT_CONFIG: Configuration = {
   theme: {
     start: {
       header: 'Fresko',
-      subheader: 'helping you keeping your workspace fresh since 1337.',
+      subheader: '',
     },
     end: {
-      header: 'Done!',
-      subheader: 'And they lived happily ever after.',
+      header: '',
+      subheader: '',
     },
   },
   default: {
