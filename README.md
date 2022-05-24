@@ -3,7 +3,7 @@
 <p align="center">A configurable cli that keeps your project deps fresh</p>
 
 <p align='center'>
-<img src='./screenshots/main.png' width='426'/>
+<img src="./media/main.gif" alt="Fresko CLI" width="802" height="228" />
 </p>
 
 ## Why?
