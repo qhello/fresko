@@ -5,7 +5,7 @@ export const CONFIG_FILES = ['fresko.config.ts']
 export const DEFAULT_CONFIG: Configuration = {
   theme: {
     start: {
-      header: 'Fresko',
+      header: '🍇 Fresko',
       subheader: '',
     },
     end: {

@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import _debug from 'debug'
-import deepmerge from 'deepmerge'
 import { resolveConfig } from './config'
-import type { PromptConfiguration } from './types'
-import { confirmCommand, filterPrompts, printHeader, printSubheader, runCommand } from './utils'
+import { confirmCommand, filterPrompts, printCommands, printHeader, runCommand } from './utils'
 const debug = _debug('fresko:cli')
 
 const run = async () => {
@@ -17,26 +15,23 @@ const run = async () => {
   debug('updatedPaths', JSON.stringify(updatedPaths, null, 2))
 
   // Check which prompts should be run
-  const filteredPrompts = filterPrompts(updatedPaths, config.prompts)
+  const prompts = filterPrompts(updatedPaths, config.prompts)
 
-  debug('filteredPrompts', JSON.stringify(filteredPrompts, null, 2))
+  debug('filteredPrompts', JSON.stringify({ prompts }, null, 2))
 
   // If there are no prompts to run, exit
-  if (filteredPrompts.length === 0)
+  if (!prompts)
     return
 
   // Welcome message
-  printHeader(config.theme.start.header)
-  printSubheader(config.theme.start.subheader)
+  printHeader(config.theme.start)
+
+  console.warn(`commands queued for execution: ${printCommands(prompts)}\n`)
 
   // Run prompts
-  for (let prompt of filteredPrompts) {
-    prompt = deepmerge(prompt, config.default as Partial<PromptConfiguration>)
-    await confirmCommand(prompt)
-  }
+  await confirmCommand(prompts, config)
 
-  printHeader(config.theme.end.header)
-  printSubheader(config.theme.end.subheader)
+  printHeader(config.theme.end)
 }
 
 run()

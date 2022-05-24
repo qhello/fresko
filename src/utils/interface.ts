@@ -1,38 +1,46 @@
 import _debug from 'debug'
 import chalk from 'chalk'
-import prompts from 'prompts'
-import type { PromptConfiguration } from '../types'
+import Prompts from 'prompts'
+import deepmerge from 'deepmerge'
+import type { Configuration, PromptConfiguration } from '../types'
 import { runCommand as exec } from './commands'
 
 const debug = _debug('fresko:interface')
 
-export const printHeader = (text: string) => {
-  if (!text)
+export const printHeader = ({ header, subheader }: { header: string; subheader: string }) => {
+  if (!header && !subheader)
     return
-  console.warn(chalk.green(`\n${text}`))
+
+  console.warn(`\n${chalk.green(header)}\n${chalk.gray(subheader)}\n`)
 }
 
-export const printSubheader = (text: string) => {
-  if (!text)
-    return
-  console.warn(chalk.italic(`${text}\n`))
+export const printCommands = (prompts: PromptConfiguration[]): string => {
+  const lines = prompts.map(p => `  "${chalk.cyan(p.command)}", ${chalk.italic.green(`// modified path: ${p.path}`)}`).join('\n')
+  return `[\n${lines}\n]`
 }
 
-export const confirmCommand = async ({
-  path,
-  command,
-  ...options
-}: PromptConfiguration) => {
-  debug('confirmCommand', { path, command, options })
-  console.warn(`\n 📦 ${chalk.white.bgGrey(path)} was updated! \n`)
-
-  const { runCommand } = await prompts({
-    type: 'confirm',
-    name: 'runCommand',
-    message: `would you like to run ${chalk.white.bgGrey(command)}?`,
-    initial: true,
+export const confirmCommand = async (prompts: PromptConfiguration[], config: Configuration) => {
+  const { runCommands } = await Prompts({
+    type: 'select',
+    name: 'runCommands',
+    message: 'which commands would you like to run?',
+    choices: [
+      { title: 'all', description: 'run all commands sequentially', value: 'all' },
+      { title: 'some', value: 'some', disabled: true },
+      { title: 'none', value: 'none' },
+    ],
   })
 
-  if (runCommand)
+  debug({ runCommands })
+
+  if (!runCommands || runCommands === 'none')
+    return
+
+  for (const { command, silent, env } of prompts) {
+    const options = deepmerge({ silent, env }, config.default)
+
+    console.warn(`running command: ${chalk.cyan(command)}`)
+
     await exec(command, options)
+  }
 }
