@@ -1,6 +1,6 @@
 {
   "name": "fresko",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A configurable cli that keeps your project deps fresh",
   "homepage": "https://github.com/qhello/fresko#readme",
   "bugs": {
