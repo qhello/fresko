@@ -7,7 +7,7 @@ export const filterPrompts = (updatedPaths: string[], prompts: PromptConfigurati
     const paths = Array.isArray(prompt.path) ? prompt.path : [prompt.path]
     const filteredPaths = paths.filter(p => updatedPaths.some(u => u.includes(p)))
 
-    if (!filteredPaths)
+    if (!filteredPaths.length)
       return
 
     affectedPrompts.push({ ...prompt, path: filteredPaths })
