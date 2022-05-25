@@ -20,7 +20,7 @@ const run = async () => {
   debug('filteredPrompts', JSON.stringify({ prompts }, null, 2))
 
   // If there are no prompts to run, exit
-  if (!prompts)
+  if (!prompts.length)
     return
 
   // Welcome message
